@@ -31,14 +31,30 @@
 
     header h1 {
       font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 0.5rem;
+      margin-bottom: .5rem;
     }
 
     header p {
       color: var(--muted);
-      max-width: 700px;
-      margin: 0 auto;
+      max-width: 750px;
+      margin: 0 auto 1.2rem;
       font-size: 1.1rem;
+    }
+
+    .contact {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      background: rgba(56,189,248,.12);
+      padding: .6rem 1.2rem;
+      border-radius: 999px;
+      font-size: .95rem;
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
     }
 
     main {
@@ -56,7 +72,7 @@
     .card {
       background: linear-gradient(180deg, var(--card), #020617);
       border-radius: 1.5rem;
-      padding: 1.8rem;
+      padding: 1.6rem;
       position: relative;
       overflow: hidden;
       box-shadow: 0 20px 40px rgba(0,0,0,.4);
@@ -68,6 +84,17 @@
     .card:nth-child(1) { animation-delay: .1s; }
     .card:nth-child(2) { animation-delay: .2s; }
     .card:nth-child(3) { animation-delay: .3s; }
+    .card:nth-child(4) { animation-delay: .4s; }
+    .card:nth-child(5) { animation-delay: .5s; }
+
+    .preview {
+      width: 100%;
+      height: 160px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
 
     .card::before {
       content: "";
@@ -158,88 +185,83 @@
 
 <header>
   <h1>Enoc Salomón Salazar Ortega</h1>
-  <p>Desarrollador Web enfocado en React. Proyectos reales con PHP, Python y MySQL ejecutados en entorno local y Nube</p>
+  <p>Desarrollador Web enfocado en React. Proyectos reales con PHP, Python y MySQL ejecutados en entorno local e institucional.</p>
+  <div class="contact">
+    📲 WhatsApp: <a href="https://wa.me/51999999999" target="_blank">+51 999 999 999</a>
+  </div>
 </header>
 
 <main>
   <section class="grid">
 
     <article class="card">
+      <img src="assets/previews/certificados.png" class="preview" alt="Sistema de Certificados">
       <h3>Sistema de Gestión de Certificados Digitales</h3>
       <div class="tags">
-        <span class="tag">NextJs</span>
-        <span class="tag">PostgreSQ</span>
-        <span class="tag">API Backend integrada</span>
-        <span class="tag">Node.js</span>
-        <span class="tag">HTML5 / CSS3</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">PostgreSQL</span>
         <span class="tag">SMTP</span>
       </div>
-      <p>Sistema web para gestionar documentos digitales, monitorear vencimientos y enviar alertas automáticas por correo electrónico, evitando pérdidas de vigencia y riesgos administrativos.</p>
+      <p>Sistema web desarrollado desde cero para control de certificados, vencimientos y alertas automáticas por correo.</p>
       <div class="links">
-        <a href="https://github.com/tuusuario/sgaiu" target="_blank">Parte del Código</a>
+        <a href="#">Código</a>
         <a href="certificados.html">Detalle</a>
       </div>
     </article>
 
     <article class="card">
-      <h3>Sistema de Gestion Interna POS Multisucursal</h3>
+      <img src="assets/previews/multisucursal.png" class="preview" alt="POS Multisucursal">
+      <h3>Sistema POS Multisucursal</h3>
       <div class="tags">
         <span class="tag">PHP</span>
-        <span class="tag">jQuery</span>
         <span class="tag">MySQL</span>
         <span class="tag">AJAX</span>
-        <span class="tag">HTML5 / CSS3</span>
       </div>
-      <p>Módulo de gestión de usuarios con validaciones, estados, roles y consumo de API REST.</p>
+      <p>Sistema de ventas y control interno adaptado para múltiples sucursales.</p>
       <div class="links">
-        <a href="https://github.com/tuusuario/crud-usuarios" target="_blank">Código</a>
+        <a href="#">Código</a>
         <a href="multisucursal.html">Detalle</a>
       </div>
     </article>
-    
-     <article class="card">
-      <h3>Sistema POS para Farmacias y Mayoristas</h3>
+
+    <article class="card">
+      <img src="assets/previews/farmacia.png" class="preview" alt="POS Farmacia">
+      <h3>Sistema POS para Farmacias</h3>
       <div class="tags">
         <span class="tag">PHP</span>
-        <span class="tag">JavaScript / jQuery</span>
         <span class="tag">MySQL</span>
-        <span class="tag">AJAX</span>
-        <span class="tag">HTML5 / CSS3</span>
       </div>
-      <p>Gestion Interna de Farmacias,Gestion y Venta Rapida para Pequeños Negocios</p>
+      <p>Adaptación de POS para farmacias con control de caducidad y alertas.</p>
       <div class="links">
-        <a href="https://github.com/tuusuario/crud-usuarios" target="_blank">Código</a>
+        <a href="#">Código</a>
         <a href="farmacia.html">Detalle</a>
       </div>
     </article>
 
     <article class="card">
-      <h3>Sistema POS para Restaurantes y Delivery</h3>
+      <img src="assets/previews/restaurante.png" class="preview" alt="POS Restaurante">
+      <h3>Sistema POS para Restaurantes</h3>
       <div class="tags">
         <span class="tag">PHP</span>
-        <span class="tag">JavaScript / jQuery</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">AJAX</span>
-        <span class="tag">HTML5 / CSS3</span>
+        <span class="tag">Delivery</span>
       </div>
-      <p>Gestion de Mesas Comandas y Preparacion de Platos para Restaurantes asi como Delivery </p>
+      <p>Gestión de mesas, comandas, pagos mixtos y delivery.</p>
       <div class="links">
-        <a href="https://github.com/tuusuario/crud-usuarios" target="_blank">Código</a>
+        <a href="#">Código</a>
         <a href="restaurante.html">Detalle</a>
       </div>
     </article>
 
     <article class="card">
-      <h3>Generador de Tickets SUNAT desde XML</h3>
+      <img src="assets/previews/ticket.png" class="preview" alt="Tickets SUNAT">
+      <h3>Generador de Tickets SUNAT</h3>
       <div class="tags">
         <span class="tag">Python</span>
-        <span class="tag">Flask</span>
-        <span class="tag">P.Xml</span>
-        <span class="tag">F.E.</span>
+        <span class="tag">XML</span>
       </div>
-      <p>interpreta la estructura XML, extrae los datos fiscales, los procesa y genera una imagen final del ticket con diseño profesional.</p>
+      <p>Conversión de XML SUNAT a tickets profesionales listos para impresión térmica.</p>
       <div class="links">
-        <a href="https://github.com/tuusuario/api-python" target="_blank">Código</a>
+        <a href="#">Código</a>
         <a href="ticket.html">Detalle</a>
       </div>
     </article>

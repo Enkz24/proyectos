@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Gestión de Certificados Digitales</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #0f172a;
+      --accent: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(120deg, #020617, #020617);
+      color: var(--text);
+    }
+
+    header {
+      padding: 3rem 1.5rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+      animation: fadeDown 1s ease;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: .5rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    section {
+      margin-top: 3rem;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), #020617);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    ul { padding-left: 1.2rem; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .img-card {
+      background: #020617;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,.4);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp .8s ease forwards;
+    }
+
+    .img-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .img-card span {
+      display: block;
+      padding: .8rem 1rem;
+      font-size: .9rem;
+      color: var(--muted);
+      background: #020617;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @keyframes fadeUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Sistema de Gestión de Certificados Digitales</h1>
+  <p>
+    Sistema web desarrollado completamente desde cero para la gestión,
+    control y alertas automáticas de certificados digitales.
+    Actualmente en funcionamiento local en la UTP – Sede Huancayo.
+  </p>
+</header>
+
+<main>
+
+  <section>
+    <h2>Descripción del Sistema</h2>
+    <div class="card">
+      <p>
+        Este sistema fue diseñado y desarrollado íntegramente desde cero
+        para resolver la necesidad de controlar certificados con fechas
+        de caducidad dentro de un entorno institucional.
+      </p>
+      <p>
+        Permite gestionar documentos digitales, monitorear vencimientos
+        y enviar alertas automáticas por correo electrónico, evitando
+        pérdidas de vigencia y riesgos administrativos.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contexto de Uso</h2>
+    <div class="card">
+      <ul>
+        <li>Sistema operativo interno</li>
+        <li>Implementado en entorno local institucional</li>
+        <li>Actualmente en uso en la UTP – Huancayo</li>
+        <li>Soporte a procesos administrativos y documentales</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>⚙️ Funcionalidades Principales</h2>
+    <div class="card">
+      <ul>
+        <li>Registro y administración de certificados digitales</li>
+        <li>Carga, edición y reemplazo de documentos (PDF y otros)</li>
+        <li>Gestión de fechas de emisión y caducidad</li>
+        <li>Alertas automáticas por correo electrónico</li>
+        <li>Notificación anticipada de certificados por vencer</li>
+        <li>Edición y actualización de información documental</li>
+        <li>Control centralizado de vigencias</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Evidencia Visual del Sistema</h2>
+    <div class="gallery">
+
+      <div class="img-card">
+        <img src="assets/imgs/certificados-listado.png" alt="Listado de certificados">
+        <span>Listado general de certificados con estados y fechas de vencimiento.</span>
+      </div>
+
+      <div class="img-card">
+        <img src="assets/imgs/certificados-alertas.png" alt="Alertas por correo">
+        <span>Alertas automáticas enviadas por correo electrónico.</span>
+      </div>
+
+      <div class="img-card">
+        <img src="assets/imgs/certificados-edicion.png" alt="Edición de certificados">
+        <span>Edición y reemplazo de documentos certificados.</span>
+      </div>
+
+      <div class="img-card">
+        <img src="assets/imgs/certificados-subida.png" alt="Subida de documentos">
+        <span>Subida y gestión de archivos digitales.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Tecnologías Utilizadas</h2>
+    <div class="card">
+      <ul>
+        <li>Next.js</li>
+        <li>PostgreSQL</li>
+        <li>API Backend integrada</li>
+        <li>Node.js</li>
+        <li>HTML5 / CSS3</li>
+        <li>Envío de correos automatizados</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 – Sistema desarrollado desde cero | Portafolio técnico
+</footer>
+
+</body>
+</html>

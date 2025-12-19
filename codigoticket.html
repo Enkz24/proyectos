@@ -114,13 +114,24 @@
     <div class="block">
 
       <div class="code-card">
-<pre><code>import xml.etree.ElementTree as ET
+<pre><code>
+    def parse_xml(xml_path):
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
 
-tree = ET.parse(xml_path)
-root = tree.getroot()
+    # EMISOR
+    supplier = root.find('cac:AccountingSupplierParty', NS)
+    supplier_id = _findtext(supplier, './/cbc:ID')
+    supplier_name = _findfindtext = _findtext(supplier, './/cbc:RegistrationName')
 
-serie = root.find('.//cbc:ID', namespaces=ns).text
-fecha = root.find('.//cbc:IssueDate', namespaces=ns).text
+    # Establecimiento del Emisor
+    est_addr = supplier.find('.//cac:PartyLegalEntity/cac:RegistrationAddress', NS)
+    est_emisor = {
+        "line": _findtext(est_addr, 'cbc:Line'),
+        "district": _findtext(est_addr, 'cbc:District'),
+        "city": _findtext(est_addr, 'cbc:CityName'),
+        "region": _findtext(est_addr, 'cbc:CountrySubentity')
+    }
 </code></pre>
       </div>
 
@@ -141,9 +152,16 @@ fecha = root.find('.//cbc:IssueDate', namespaces=ns).text
     <div class="block">
 
       <div class="code-card">
-<pre><code>subtotal = float(root.find('.//cbc:LineExtensionAmount', namespaces=ns).text)
-igv = float(root.find('.//cac:TaxTotal//cbc:TaxAmount', namespaces=ns).text)
-total = subtotal + igv
+<pre><code>
+  c.setFont("Helvetica", 16)
+    c.drawRightString(TICKET_PX-margin, y, f"VALOR VENTA: S/ {float(parsed['line_ext']):.2f}")
+    y -= 20
+    c.drawRightString(TICKET_PX-margin, y, f"IGV (18%): S/ {float(parsed['tax_total']):.2f}")
+    y -= 25
+    c.setFont("Helvetica-Bold", 20)
+    c.drawRightString(TICKET_PX-margin, y, f"TOTAL: S/ {float(parsed['total_payable']):.2f}")
+    y -= 35
+    y = draw_line(c, y, margin)
 </code></pre>
       </div>
 
@@ -164,10 +182,25 @@ total = subtotal + igv
     <div class="block">
 
       <div class="code-card">
-<pre><code>img = Image.new('RGB', (384, height), 'white')
-draw = ImageDraw.Draw(img)
+<pre><code>logo_path = os.path.join(media_folder, "logo.png")
+    if os.path.exists(logo_path):
+         try:
+            img = Image.open(logo_path)
 
-draw.text((x, y), empresa_nombre, font=font_bold)
+            if img.mode in ("RGBA", "LA"):
+                bg = Image.new("RGB", img.size, (255, 255, 255))
+                bg.paste(img, mask=img.split()[3])
+                img = bg
+
+            ir = ImageReader(img)
+            w, h = img.size
+            ratio = min((TICKET_PX - margin * 2) / w, 1.1)
+            w2, h2 = w * ratio, h * ratio
+
+            c.drawImage(ir, (TICKET_PX-w2)/2, y-h2, width=w2, height=h2)
+            y -= h2 + 25
+    except Exception as e:
+    print("ERROR LOGO:", e)
 </code></pre>
       </div>
 

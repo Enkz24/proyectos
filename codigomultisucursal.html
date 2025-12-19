@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Código Parcial | POS Multisucursal</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #0f172a;
+      --accent: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --code: #020617;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 3rem 1.5rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: .5rem;
+    }
+
+    header p {
+      color: var(--muted);
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    section { margin-top: 3rem; }
+
+    h2 { color: var(--accent); }
+
+    .block {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .block { grid-template-columns: 1fr; }
+    }
+
+    .code-card, .info-card {
+      background: linear-gradient(180deg, var(--card), #020617);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+    }
+
+    pre {
+      background: var(--code);
+      padding: 1rem;
+      border-radius: .8rem;
+      overflow-x: auto;
+      font-size: .85rem;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .preview {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: .8rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Código Parcial y Funcionamiento</h1>
+  <p>
+    Fragmentos representativos del sistema POS Multisucursal.
+    Se muestra únicamente lógica clave para demostrar funcionamiento.
+  </p>
+</header>
+
+<main>
+
+  <section>
+    <h2>Precios por Mayor y Menor</h2>
+    <div class="block">
+
+      <div class="code-card">
+<pre><code>// Selección dinámica de precios
+if ($tipoVenta === 'MAYOR') {
+  $precio = $producto['precio_mayor'];
+} else {
+  $precio = $producto['precio_menor'];
+}
+</code></pre>
+      </div>
+
+      <div class="info-card">
+        <p>
+          Permite seleccionar automáticamente el precio correcto según
+          el tipo de venta, evitando errores y mejorando la velocidad de atención.
+        </p>
+        <img src="assets/previews/multi-precio.png" class="preview" alt="Precio mayor menor">
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Ventas al Crédito</h2>
+    <div class="block">
+
+      <div class="code-card">
+<pre><code>// Registro de ventas al crédito
+if ($formaPago === 'CREDITO') {
+  registrarCredito($ventaId, $clienteId, $monto);
+}
+</code></pre>
+      </div>
+
+      <div class="info-card">
+        <p>
+          Registra ventas a crédito y las asocia al cliente correspondiente
+          para su posterior control y seguimiento.
+        </p>
+        <img src="assets/previews/multi-credito.png" class="preview" alt="Crédito">
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Generación del Ticket</h2>
+    <div class="block">
+
+      <div class="code-card">
+<pre><code>// Generación de ticket
+$ticket->addLogo($empresa['logo']);
+$ticket->addTotales($subtotal, $igv, $total);
+$ticket->render();
+</code></pre>
+      </div>
+
+      <div class="info-card">
+        <p>
+          Construcción del ticket de venta con diseño profesional y
+          estructura optimizada para impresoras térmicas.
+        </p>
+        <img src="assets/previews/multi-ticket.png" class="preview" alt="Ticket">
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 – Código parcial | POS Multisucursal
+</footer>
+
+</body>
+</html>

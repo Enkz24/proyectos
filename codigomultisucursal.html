@@ -113,12 +113,76 @@
     <div class="block">
 
       <div class="code-card">
-<pre><code>// Selección dinámica de precios
-if ($tipoVenta === 'MAYOR') {
-  $precio = $producto['precio_mayor'];
-} else {
-  $precio = $producto['precio_menor'];
-}
+<pre><code>
+    case "listDetIng":
+    require_once "../model/Pedido.php";
+    $objPedido = new Pedido();
+    $query = $objPedido->ListarDetalleIngresos($_SESSION["idsucursal"]);
+    $data = [];
+    if ($query) {
+        while ($reg = $query->fetch_object()) {
+
+            $acciones = <<<HTML
+            <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                <!-- Botón Público -->
+                <button type="button" class="btn btn-warning btn-sm btn-agregar" 
+                    data-codigo="{$reg->codigo}" 
+                    data-serie="{$reg->precio_ventadistribuidor}" 
+                    data-nombre="{$reg->Articulo}" 
+                    data-descripcion="{$reg->descripcion}" 
+                    data-precio-venta="{$reg->precio_ventapublico}" 
+                    data-stock-actual="{$reg->stock_actual}" 
+                    id="{$reg->iddetalle_ingreso}" 
+                    value="{$reg->iddetalle_ingreso}"
+                    data-toggle="tooltip" title="Precio Público"
+                    onclick="AgregarPedCarritoConCantidad(this, '{$reg->precio_ventapublico}')">
+                    <i class="fa fa-check"></i> Público
+                </button>
+                <!-- Botón Mayor -->
+                <button type="button" class="btn btn-success btn-sm btn-agregar"
+                    data-codigo="{$reg->codigo}" 
+                    data-serie="{$reg->precio_ventadistribuidor}" 
+                    data-nombre="{$reg->Articulo}" 
+                    data-descripcion="{$reg->descripcion}" 
+                    data-precio-venta="{$reg->precio_ventadistribuidor}" 
+                    data-stock-actual="{$reg->stock_actual}" 
+                    id="{$reg->iddetalle_ingreso}" 
+                    value="{$reg->iddetalle_ingreso}"
+                    data-toggle="tooltip" title="Precio Mayorista"
+                    onclick="AgregarPedCarritoConCantidad(this, '{$reg->precio_ventadistribuidor}')">
+                    <i class="fa fa-cubes"></i> Mayor
+                </button>
+                <!-- Botón Info -->
+                <button type="button" class="btn btn-info btn-sm btn-precio-compra"
+                    data-preciocompra="{$reg->precio_compra}"
+                    data-preciodistribuidor="{$reg->precio_ventadistribuidor}"
+                    title="Mantén presionado para ver precios">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <!-- Input de cantidad -->
+                <div style="margin-top:4px; text-align:center;">
+                    <label style="font-size:11px; display:block;">Cant.</label>
+                    <input type="number" class="form-control form-control-sm cantidad-art" 
+                        min="1" max="{$reg->stock_actual}" value="1"
+                        style="width:70px; text-align:center;">
+                </div>
+            </div>
+            HTML;
+            $imagenHtml = $reg->imagen
+                ? "<img width='100' height='100' src='./{$reg->imagen}' />"
+                : "<span class='text-muted'>Sin imagen</span>";
+
+            $data[] = [
+                "0" => $acciones,
+                "1" => htmlspecialchars($reg->Articulo),
+                "2" => htmlspecialchars($reg->codigo),
+                "3" => number_format($reg->precio_ventadistribuidor, 2),
+                "4" => htmlspecialchars($reg->descripcion),
+                "5" => (int)$reg->stock_actual,
+                "6" => number_format($reg->precio_ventapublico, 2),
+                "7" => $imagenHtml,
+                "8" => $reg->fecha
+            ];
 </code></pre>
       </div>
 
@@ -138,9 +202,20 @@ if ($tipoVenta === 'MAYOR') {
     <div class="block">
 
       <div class="code-card">
-<pre><code>// Registro de ventas al crédito
-if ($formaPago === 'CREDITO') {
-  registrarCredito($ventaId, $clienteId, $monto);
+<pre><code>
+  
+  case "RegistrarPrimerPago":
+        $idventa = $_POST["idventa"];
+        $total_pago = $_POST["total_pago"];
+        $fecha_pago = $_POST["fecha_pago"];
+
+        if ($objCredito->RegistrarPrimerPago($idventa, $fecha_pago, $total_pago)) {
+            echo "Crédito registrado correctamente.";
+        } else {
+            echo "No se pudo registrar el crédito.";
+        }
+        break;
+
 }
 </code></pre>
       </div>
@@ -161,10 +236,37 @@ if ($formaPago === 'CREDITO') {
     <div class="block">
 
       <div class="code-card">
-<pre><code>// Generación de ticket
-$ticket->addLogo($empresa['logo']);
-$ticket->addTotales($subtotal, $igv, $total);
-$ticket->render();
+<pre><code>
+  <div class="zona_impresion">
+        <!-- codigo imprimir -->
+<br>
+<table border="0" align="center" width="300px">
+    <tr>
+         <td align="center">
+    <?php
+    $logo = !empty($reg_cli->logo) ? $reg_cli->logo : 'logo1.jpg';
+    ?>
+    <img src="../<?php echo $logo; ?>" style="width: 400px;" alt="Logo Sucursal">
+    <br>
+        <br>
+        NOTA DE VENTA
+        <br>
+        <br>
+        <?php echo $reg_cli->direccion; ?><br>
+        <?php echo $reg_cli->telefono_suc; ?> - <?php echo $reg_cli->tipo_documento; ?> <?php echo $reg_cli->num_sucursal; ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center"><?php echo "Fecha/Hora: ".date("Y-m-d H:i:s"); ?></td>
+    </tr>
+    <tr>
+      <td align="center"></td>
+    </tr>
+    <tr>
+        <td>Cliente: <?php echo $reg_cli->nombre; ?></td>
+    </tr>
+    <tr>...
 </code></pre>
       </div>
 

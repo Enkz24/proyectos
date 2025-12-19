@@ -182,25 +182,12 @@
     <div class="block">
 
       <div class="code-card">
-<pre><code>logo_path = os.path.join(media_folder, "logo.png")
-    if os.path.exists(logo_path):
-         try:
-            img = Image.open(logo_path)
-
-            if img.mode in ("RGBA", "LA"):
-                bg = Image.new("RGB", img.size, (255, 255, 255))
-                bg.paste(img, mask=img.split()[3])
-                img = bg
-
-            ir = ImageReader(img)
-            w, h = img.size
-            ratio = min((TICKET_PX - margin * 2) / w, 1.1)
-            w2, h2 = w * ratio, h * ratio
-
-            c.drawImage(ir, (TICKET_PX-w2)/2, y-h2, width=w2, height=h2)
-            y -= h2 + 25
-    except Exception as e:
-    print("ERROR LOGO:", e)
+<pre><code>
+    def parse_xml_and_render_ticket(xml_path, media_folder="static/media", final=False):
+    parsed = parse_xml(xml_path)
+    out = os.path.join("static", "ticket_preview.png")
+    render_ticket_to_png(parsed, out, media_folder=media_folder, final=final)
+    return out, parsed
 </code></pre>
       </div>
 

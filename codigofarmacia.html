@@ -94,12 +94,30 @@
       color: var(--muted);
       font-size: .9rem;
     }
+
+     .title-code {
+  display: flex;
+  align-items: center;
+  gap: .10rem;
+}
+
+.title-code svg {
+  color: var(--accent);
+}    
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Código Parcial y Funcionamiento</h1>
+   <h1 class="title-code">
+  <svg width="50" height="50" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+  </svg>
+  Sistema de Farmacias y Tiendas <span>| Parte del Código</span>
+</h1>
   <p>
     Fragmentos clave del sistema POS adaptado para farmacias y
     tiendas mayoristas. Se muestran las mejoras implementadas

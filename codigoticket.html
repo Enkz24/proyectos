@@ -50,10 +50,12 @@
 
     h2 { color: var(--accent); }
 
+    /* ===== BLOQUE PRINCIPAL ===== */
     .block {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: .9fr 1.1fr;
       gap: 1.5rem;
+      align-items: start;
     }
 
     @media (max-width: 900px) {
@@ -67,14 +69,24 @@
       box-shadow: 0 20px 40px rgba(0,0,0,.4);
     }
 
+    /* ===== CÓDIGO ===== */
+    .code-card {
+      max-height: 420px;
+      overflow: hidden;
+    }
+
     pre {
       background: var(--code);
       padding: 1rem;
       border-radius: .8rem;
       overflow-x: auto;
-      font-size: .85rem;
+      overflow-y: auto;
+      max-height: 360px;
+      font-size: .82rem;
+      line-height: 1.4;
     }
 
+    /* ===== INFO ===== */
     .info-card p {
       color: var(--muted);
       line-height: 1.6;
@@ -82,8 +94,9 @@
 
     .preview {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: 260px;
+      object-fit: contain;
+      background: #020617;
       border-radius: .8rem;
       margin-top: 1rem;
     }
@@ -94,40 +107,55 @@
       color: var(--muted);
       font-size: .9rem;
     }
+
+    /* ===== TÍTULO CON ÍCONO ===== */
     .title-code {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-}
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+    }
 
-.title-code svg {
-  width: 50px;
-  height: 50px;
-  color: var(--accent);
-  flex-shrink: 0;
-  transform: translateY(2px); /* ajuste óptico */
-}
+    .title-code svg {
+      width: 50px;
+      height: 50px;
+      color: var(--accent);
+      flex-shrink: 0;
+      transform: translateY(2px);
+    }
 
-.title-code span {
-  color: var(--accent);
-  font-weight: 500;
-}
+    .title-code span {
+      color: var(--accent);
+      font-weight: 500;
+    }
 
+    @media (max-width: 900px) {
+      .code-card {
+        max-height: none;
+      }
+
+      pre {
+        max-height: none;
+      }
+
+      .preview {
+        height: 220px;
+      }
+    }
   </style>
 </head>
 <body>
 
 <header>
-   <h1 class="title-code">
-  <svg viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" stroke-width="2"
-       stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="16 18 22 12 16 6"></polyline>
-    <polyline points="8 6 2 12 8 18"></polyline>
-  </svg>
-  Sistema de XML SUNAT a Ticket <span>| Parte del Código</span>
-</h1>
+  <h1 class="title-code">
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 18 22 12 16 6"></polyline>
+      <polyline points="8 6 2 12 8 18"></polyline>
+    </svg>
+    Sistema de XML SUNAT a Ticket <span>| Parte del Código</span>
+  </h1>
 
   <p>
     Fragmentos clave del sistema desarrollado en Python para convertir
@@ -144,7 +172,7 @@
 
       <div class="code-card">
 <pre><code>
-    def parse_xml(xml_path):
+def parse_xml(xml_path):
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
@@ -182,15 +210,15 @@
 
       <div class="code-card">
 <pre><code>
-  c.setFont("Helvetica", 16)
-    c.drawRightString(TICKET_PX-margin, y, f"VALOR VENTA: S/ {float(parsed['line_ext']):.2f}")
-    y -= 20
-    c.drawRightString(TICKET_PX-margin, y, f"IGV (18%): S/ {float(parsed['tax_total']):.2f}")
-    y -= 25
-    c.setFont("Helvetica-Bold", 20)
-    c.drawRightString(TICKET_PX-margin, y, f"TOTAL: S/ {float(parsed['total_payable']):.2f}")
-    y -= 35
-    y = draw_line(c, y, margin)
+c.setFont("Helvetica", 16)
+c.drawRightString(TICKET_PX-margin, y, f"VALOR VENTA: S/ {float(parsed['line_ext']):.2f}")
+y -= 20
+c.drawRightString(TICKET_PX-margin, y, f"IGV (18%): S/ {float(parsed['tax_total']):.2f}")
+y -= 25
+c.setFont("Helvetica-Bold", 20)
+c.drawRightString(TICKET_PX-margin, y, f"TOTAL: S/ {float(parsed['total_payable']):.2f}")
+y -= 35
+y = draw_line(c, y, margin)
 </code></pre>
       </div>
 
@@ -212,7 +240,7 @@
 
       <div class="code-card">
 <pre><code>
-    def parse_xml_and_render_ticket(xml_path, media_folder="static/media", final=False):
+def parse_xml_and_render_ticket(xml_path, media_folder="static/media", final=False):
     parsed = parse_xml(xml_path)
     out = os.path.join("static", "ticket_preview.png")
     render_ticket_to_png(parsed, out, media_folder=media_folder, final=final)
